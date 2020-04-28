@@ -7,9 +7,8 @@
 
 ### Deploy
 
-* ```cd src && npm ci```
+* ```terraform init```
 * ```terraform apply```
-* wait patiently
 
 ### Use
 
