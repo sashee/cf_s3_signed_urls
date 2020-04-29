@@ -9,11 +9,10 @@ resource "aws_s3_bucket" "bucket" {
   force_destroy = "true"
 }
 
-resource "aws_s3_bucket_object" "object" {
-  bucket       = aws_s3_bucket.bucket.bucket
-  key          = "index.html"
-  content      = "Hello world!"
-  content_type = "text/html"
+resource "aws_s3_bucket_object" "cat" {
+  bucket = aws_s3_bucket.bucket.bucket
+  key    = "cat.jpg"
+  source = "cat.jpg"
 }
 
 # signer lambda + api gw
@@ -52,7 +51,6 @@ resource "aws_lambda_function" "signer_lambda" {
 
 data "aws_iam_policy_document" "lambda_exec_role_policy" {
   statement {
-    sid = "1"
     actions = [
       "logs:CreateLogStream",
       "logs:PutLogEvents"
@@ -62,7 +60,6 @@ data "aws_iam_policy_document" "lambda_exec_role_policy" {
     ]
   }
   statement {
-    sid = "2"
     actions = [
       "s3:GetObject",
     ]

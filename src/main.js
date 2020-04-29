@@ -17,7 +17,7 @@ const getTruncatedTime = () => {
 };
 
 module.exports.handler = async (event, context) => {
-	const params = {Bucket: process.env.BUCKET, Key: "index.html", Expires: 3600};
+	const params = {Bucket: process.env.BUCKET, Key: "cat.jpg", Expires: 3600};
 
 	const url = tk.withFreeze(getTruncatedTime(), () => {
 		return s3.getSignedUrl( "getObject", params);
@@ -29,7 +29,14 @@ module.exports.handler = async (event, context) => {
 	const CFurl = parsedUrl.toString();
 	return {
 		statusCode: 200,
-		body: CFurl,
+		headers: {
+			"Content-Type": "text/html",
+		},
+		body: `
+<html>
+	<body><img src="${CFurl}"></body>
+</html>
+		`,
 	};
 };
 
