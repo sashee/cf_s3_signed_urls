@@ -9,7 +9,7 @@ const getTruncatedTime = () => {
 	const currentTime = new Date();
 	const d = new Date(currentTime);
 
-	d.setMinutes(Math.floor(d.getMinutes() / 30) * 30);
+	d.setMinutes(Math.floor(d.getMinutes() / 5) * 5);
 	d.setSeconds(0);
 	d.setMilliseconds(0);
 
@@ -17,7 +17,7 @@ const getTruncatedTime = () => {
 };
 
 module.exports.handler = async (event, context) => {
-	const params = {Bucket: process.env.BUCKET, Key: "cat.jpg", Expires: 3600};
+	const params = {Bucket: process.env.BUCKET, Key: "cat.jpg"};
 
 	const url = tk.withFreeze(getTruncatedTime(), () => {
 		return s3.getSignedUrl( "getObject", params);

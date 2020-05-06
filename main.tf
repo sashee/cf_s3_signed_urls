@@ -181,9 +181,9 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     target_origin_id = "1"
 
     # limit caching
-    default_ttl = 1800
-    min_ttl     = 1800
-    max_ttl     = 1800
+    default_ttl = 900
+    min_ttl     = 900
+    max_ttl     = 900
 
     forwarded_values {
       query_string = true
